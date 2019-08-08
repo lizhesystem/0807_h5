@@ -46,7 +46,7 @@
     }
     .v-leave-to{
         transform: translateX(-100%);
-        position: absolute;
+        /*position: absolute;*/
     }
     .v-enter-active,
     .v-leave-active{
