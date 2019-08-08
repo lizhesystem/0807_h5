@@ -1,6 +1,0 @@
-node_modules
-.idea
-.git
-*.iml
-*.log
-package-lock.json
