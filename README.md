@@ -61,6 +61,17 @@ JS组件按需导入，在组件`script`里导入使用。
 
 ### four
 1. 改造图片分享的路由链接为对于的组件photos，实现可以跳转。
+2. 顶部的滑动条制作，使用mui里的`tab-top-webview-main`样式，a外面3跟div，去掉一个mui-fullscreen的全屏类(默认这个类是全屏显示)。
+    + 滑动条无法触发滑动，通过检查官方文档发现这个是个JS的组件，需要初始化，1：导入mui.js，2：调用官方提供的方式进行初始化，3：`mui('.mui-scroll-wrapper').scroll({  deceleration: 0.0005 }) 系数越大滚动速度越慢，滚动距离越小`
+    + 初始化的时候控制台报错，说`may not be accessed on sttrict mode` 在严格模式下一些方法不能用，推测后发现webpack打包好的bundle.js中默认启用了严格模式，导入的mui.js不是严格模式。冲突了
+    + 解决方法：1：把mui.js中的非严格模式代码改掉，但是不行现实，2：把webpack打包时候的严格模式禁用掉。使用一个插件来搞定，使用`babel`的一个插件`babel-plugin-transform-remove-strict-mode` https://github.com/genify/babel-plugin-transform-remove-strict-mode 具体使用看readme
+    + 滑动的时候报警告：Unable to preventDefault inside passive event listener due to target being treated as passive. See https://www.chromestatus.com/features/5093566007214080 解决方法，可以加上* { touch-action: none; } 这句样式去掉。
+    + 第一次刚进入图片分享页面后滑动条不会滑动，如果要初始化，必须等DOM元素加载完毕，这个时候我们最好把方法写到`mounted()`里，因为这个时候DOM元素是最新的。因为这个时候DOM结构以及渲染好放到页面了
+    + 滑动条调试好后，发下底部tabbar无法正常工作，发现是因为tabbar的样式导致的，这个时候把mui里原始定义的tabbar的样式`mui-tab-item`所有用到这个属性的都给改个名字重新定义下。在APP组件里
+3. 渲染分类别表的数据，接口获取数据（没有接口自己写数据循环），自己处理一个全部的分类。ID为0，默认选中变颜色，mui提供了一个样式使用三元表达式来定义选中的时候变色`:class=[xxx,如果id=0显示或者不显示]`
+4. 制作图片区域列表，懒加载使用mint-ui的`lazy load`指令，渲染图片数据，导入数据，根据文档给img家v-lazy指令，需要先定义图片列表的数据，使用本地图片（根据接口返回的数据定于数据）
+    
+3. 
 
 
 
