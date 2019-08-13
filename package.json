@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "mint-ui": "^2.2.13",
+    "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
     "webpack": "^4.39.1"

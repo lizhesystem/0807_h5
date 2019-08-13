@@ -7,6 +7,12 @@ import HomeContainer from "./components/tabbar/HomeContainer.vue";
 import MemberContainer from "./components/tabbar/MemberContainer.vue";
 import SearchContainer from "./components/tabbar/SearchContainer.vue";
 import ShopcarContainer from "./components/tabbar/ShopcarContainer.vue";
+// 新闻组件
+import NewsLists from "./components/news/NewsLists.vue";
+import NewsInfo from "./components/news/NewsInfo.vue";
+
+// 图片分享
+import PhotoList from "./components/photos/PhotoList.vue";
 
 // 创建路由对象
 let routerObj = new VueRouter({
@@ -15,7 +21,10 @@ let routerObj = new VueRouter({
         {path: '/HomeContainer', component: HomeContainer},
         {path: '/MemberContainer', component: MemberContainer},
         {path: '/ShopcarContainer', component: ShopcarContainer},
-        {path: '/SearchContainer', component: SearchContainer}
+        {path: '/SearchContainer', component: SearchContainer},
+        {path: '/HomeContainer/NewsLists', component: NewsLists},
+        {path: '/HomeContainer/NewsInfo/:id', component: NewsInfo},
+        {path: '/HomeContainer/PhotoList', component: PhotoList}
     ],
     linkActiveClass: 'mui-active'
 });

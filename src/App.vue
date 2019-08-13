@@ -3,7 +3,7 @@
         <!--顶部区域-->
         <mt-header fixed title="Vue项目"></mt-header>
 
-        <!--中间区域-->
+        <!--中间区域,定义路由加载进来的数据展示，根据router.js配置的路由把页面加载到定义的router-view里-->
         <transition>
             <router-view></router-view>
         </transition>
@@ -31,25 +31,29 @@
 </template>
 
 <script>
+
 </script>
 
 
 <style scoped>
     .app-container {
         padding-top: 40px;
+        padding-bottom: 46px;
         overflow-x: hidden;
     }
 
-    .v-enter{
+    .v-enter {
         opacity: 0;
         transform: translateX(100%);
     }
-    .v-leave-to{
+
+    .v-leave-to {
         transform: translateX(-100%);
         position: absolute;
     }
+
     .v-enter-active,
-    .v-leave-active{
+    .v-leave-active {
         transition: all 0.5s ease;
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <!--轮播图开始-->
         <mt-swipe :auto="4000">
             <mt-swipe-item v-for="item in  picList" :key="item.id">
@@ -10,18 +10,25 @@
 
         <!--九宫格开始-->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu1.png" alt="">
-                <div class="mui-media-body">新闻资讯</div>
-            </a></li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu2.png" alt="">
-                <div class="mui-media-body">图片分享</div>
-            </a></li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu3.png" alt="">
-                <div class="mui-media-body">商品购买</div>
-            </a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+
+                <router-link to="/HomeContainer/NewsLists">
+                    <img src="../../images/menu1.png" alt="">
+                    <div class="mui-media-body">新闻资讯</div>
+                </router-link>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                <router-link to="/HomeContainer/PhotoList">
+                    <img src="../../images/menu2.png" alt="">
+                    <div class="mui-media-body">图片分享</div>
+                </router-link>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                <a href="#">
+                    <img src="../../images/menu3.png" alt="">
+                    <div class="mui-media-body">商品购买</div>
+                </a>
+            </li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
                 <img src="../../images/menu4.png" alt="">
                 <div class="mui-media-body">留言反馈</div>
@@ -30,10 +37,12 @@
                 <img src="../../images/menu5.png" alt="">
                 <div class="mui-media-body">视频专区</div>
             </a></li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-                <img src="../../images/menu6.png" alt="">
-                <div class="mui-media-body">联系我们</div>
-            </a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+                <a href="#">
+                    <img src="../../images/menu6.png" alt="">
+                    <div class="mui-media-body">联系我们</div>
+                </a>
+            </li>
         </ul>
         <!--九宫格结束-->
     </div>
@@ -51,9 +60,9 @@
                 ]
             }
         },
-        created() {
-
-        }
+        // created() {
+        //
+        // }
     }
 </script>
 
@@ -85,7 +94,8 @@
     .mui-grid-view.mui-grid-9 {
         background-color: #fff;
         border: none;
-        img{
+
+        img {
             width: 60px;
             height: 60px;
         }
