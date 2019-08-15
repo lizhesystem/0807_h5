@@ -13,6 +13,7 @@ import NewsInfo from "./components/news/NewsInfo.vue";
 
 // 图片分享
 import PhotoList from "./components/photos/PhotoList.vue";
+import PhotoInfo from "./components/photos/PhotoInfo.vue";
 
 // 创建路由对象
 let routerObj = new VueRouter({
@@ -24,7 +25,8 @@ let routerObj = new VueRouter({
         {path: '/SearchContainer', component: SearchContainer},
         {path: '/HomeContainer/NewsLists', component: NewsLists},
         {path: '/HomeContainer/NewsInfo/:id', component: NewsInfo},
-        {path: '/HomeContainer/PhotoList', component: PhotoList}
+        {path: '/HomeContainer/PhotoList', component: PhotoList},
+        {path: '/HomeContainer/PhotoInfo/:id', component: PhotoInfo},
     ],
     linkActiveClass: 'mui-active'
 });

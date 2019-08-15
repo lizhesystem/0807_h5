@@ -2,8 +2,8 @@
     <div>
         <!--轮播图开始-->
         <mt-swipe :auto="4000">
-            <mt-swipe-item v-for="item in  picList" :key="item.id">
-                <img :src="item.url">
+            <mt-swipe-item v-for="(item,index) in  picList" >
+                <img :src="item[index]">
             </mt-swipe-item>
         </mt-swipe>
         <!--轮播图结束-->
@@ -49,20 +49,33 @@
 </template>
 
 <script>
+
+    import {Toast} from "mint-ui";
+
     export default {
         // 这里本来是要请求服务器的数据，没有API写路径把。
         data() {
             return {
-                picList: [
-                    {url: './images/1.jpg', id: 1},
-                    {url: './images/2.jpg', id: 2},
-                    {url: './images/3.jpg', id: 3}
-                ]
+                picList: []
             }
         },
-        // created() {
-        //
-        // }
+        methods: {
+            getPicList() {
+                this.axios.get('http://120.77.181.41:3000/api/getcover').then(resource => {
+                    if (resource.data.status === 1) {
+                        this.getPicList = resource.data.imgs
+                    } else {
+                        // 失败的
+                        Toast("加载轮播图失败。。。");
+                    }
+
+                })
+            }
+        },
+        created() {
+            this.getPicList()
+            console.log(this.picList)
+        }
     }
 </script>
 
@@ -94,6 +107,8 @@
     .mui-grid-view.mui-grid-9 {
         background-color: #fff;
         border: none;
+        display: flex;
+        flex-wrap: wrap;
 
         img {
             width: 60px;
@@ -101,7 +116,9 @@
         }
     }
 
+    //
     .mui-grid-view.mui-grid-9 .mui-table-view-cell {
         border: 0;
+        min-width: 33.3%;
     }
 </style>

@@ -85,4 +85,7 @@
         text-overflow: ellipsis;
     }
 
+    .Thumbnail img{
+        width: 100px;
+    }
 </style>
