@@ -7,7 +7,7 @@
                 <div class="mui-scroll">
                     <a :class="['mui-control-item',item.id === 0 ? 'mui-active':'']" v-for="item in TitleLists"
                        :key="item.id">
-                        {{ item.title_name }}
+                        {{ item.title }}
                     </a>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 <img v-lazy="itemPic.download_url">
                 <div class="info">
                     <h1>由于接口里没东西,写固定的文字啦~</h1>
-                    <span>图片很赞...............{{ itemPic.author}}</span>
+                    <span>{{ itemPic.author}}</span>
                 </div>
             </router-link>
         </ul>
@@ -32,31 +32,37 @@
     export default {
         data() {
             return {
-                TitleLists: [
-                    {id: 0, title_name: '全部'},
-                    {id: 1, title_name: '001'},
-                    {id: 2, title_name: '002'},
-                    {id: 3, title_name: '003'},
-                    {id: 4, title_name: '004'},
-                ],
+                TitleLists: [],
                 PicLists: []
             }
         },
         mounted() {
+            // 左右滑动title栏的方法
             mui('.mui-scroll-wrapper').scroll({
                 deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
             });
 
         },
         methods: {
-            getImageList() {
-                this.axios.get('https://picsum.photos/v2/list?page=1&limit=10').then((responce) => {
-                    this.PicLists = responce.data;
+            getTitleLists() {
+                // 获取分类信息
+                this.axios.get('api/getimgcategory').then((responce) => {
+                    if (responce.data.status === 0) {
+                        // 自己添加一个全部的分类
+                        responce.data.message.unshift({id: 0, title:'全部'});
+                        this.TitleLists = responce.data.message
+                    }
+                })
+            },
+            getImageLists(cateId){
+                // 获取分类ID获取图片列表信息
+                this.axios.get('/api/getimages/' + cateId).then( resource =>{
+
                 })
             }
         },
         created() {
-            this.getImageList();
+            this.getTitleLists();
         }
     }
 </script>

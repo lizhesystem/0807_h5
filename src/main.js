@@ -9,6 +9,12 @@ Vue.use(VueRouter);
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios);
+// axios公共基路径，以后所有的请求都会在前面加上这个路径
+axios.defaults.baseURL = "http://www.liulongbin.top:3005";
+// 设置表单提交方式，默认是 json
+axios.defaults.headers['Content-Type']='application/x-www-form-urlencoded';
+// 请求超时时间
+axios.defaults.timeout=3000;
 
 // 导入缩略图插件
 import VuePreview from 'vue-preview'

@@ -2,8 +2,8 @@
     <div>
         <!--轮播图开始-->
         <mt-swipe :auto="4000">
-            <mt-swipe-item v-for="(item,index) in  picList" >
-                <img :src="item[index]">
+            <mt-swipe-item v-for="(item,index) in  picList" :key="item.id">
+                <img :src="item.img">
             </mt-swipe-item>
         </mt-swipe>
         <!--轮播图结束-->
@@ -49,11 +49,9 @@
 </template>
 
 <script>
-
     import {Toast} from "mint-ui";
 
     export default {
-        // 这里本来是要请求服务器的数据，没有API写路径把。
         data() {
             return {
                 picList: []
@@ -61,9 +59,9 @@
         },
         methods: {
             getPicList() {
-                this.axios.get('http://120.77.181.41:3000/api/getcover').then(resource => {
-                    if (resource.data.status === 1) {
-                        this.getPicList = resource.data.imgs
+                this.axios.get('api/getlunbo').then(resource => {
+                    if (resource.data.status === 0) {
+                        this.picList = resource.data.message
                     } else {
                         // 失败的
                         Toast("加载轮播图失败。。。");
@@ -73,8 +71,7 @@
             }
         },
         created() {
-            this.getPicList()
-            console.log(this.picList)
+            this.getPicList();
         }
     }
 </script>
