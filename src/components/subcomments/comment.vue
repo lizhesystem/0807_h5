@@ -11,7 +11,7 @@
                     <span>第{{ comment_content.length-index }}楼&nbsp;&nbsp;&nbsp;用户:{{ item.user_name}}&nbsp;&nbsp;&nbsp;发表时间:{{ item.add_time | timeFormat}}</span>
                 </p>
                 <div class="cms-content">
-                    {{ item.content === ''?'这个人很懒':item.content }}
+                    {{ (item.content === 'undefined')?'这个人很懒':item.content }}
                 </div>
             </div>
         </div>

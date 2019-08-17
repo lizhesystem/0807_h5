@@ -15,6 +15,10 @@ import NewsInfo from "./components/news/NewsInfo.vue";
 import PhotoList from "./components/photos/PhotoList.vue";
 import PhotoInfo from "./components/photos/PhotoInfo.vue";
 
+//商品组件
+import ProductList from "./components/shop/ProductList.vue";
+import ProductInfo from "./components/shop/ProductInfo.vue";
+
 // 创建路由对象
 let routerObj = new VueRouter({
     routes: [
@@ -27,6 +31,8 @@ let routerObj = new VueRouter({
         {path: '/HomeContainer/NewsInfo/:id', component: NewsInfo},
         {path: '/HomeContainer/PhotoList', component: PhotoList},
         {path: '/HomeContainer/PhotoInfo/:id', component: PhotoInfo},
+        {path: '/HomeContainer/ProductList', component: ProductList},
+        {path: '/HomeContainer/ProductInfo/:id', component:ProductInfo, name:'productInfo'}
     ],
     linkActiveClass: 'mui-active'
 });

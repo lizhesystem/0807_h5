@@ -1,7 +1,11 @@
 <template>
     <div class="app-container">
         <!--顶部区域-->
-        <mt-header fixed title="Vue项目"></mt-header>
+        <mt-header fixed title="Vue项目">
+            <div slot="left" @click="goBack">
+                <mt-button icon="back">返回</mt-button>
+            </div>
+        </mt-header>
 
         <!--中间区域,定义路由加载进来的数据展示，根据router.js配置的路由把页面加载到定义的router-view里-->
         <transition>
@@ -30,6 +34,14 @@
     </div>
 </template>
 <script>
+    export default {
+        methods:{
+            goBack(){
+                // 利用vue路由里的go对象，-1进行往前返回的跳转，
+                this.$router.go(-1)
+            }
+        }
+    }
 </script>
 
 <style scoped>

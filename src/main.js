@@ -14,7 +14,7 @@ axios.defaults.baseURL = "http://www.liulongbin.top:3005";
 // 设置表单提交方式，默认是 json
 axios.defaults.headers['Content-Type']='application/x-www-form-urlencoded';
 // 请求超时时间
-axios.defaults.timeout=3000;
+// axios.defaults.timeout=5000;
 
 // 导入缩略图插件
 import VuePreview from 'vue-preview'

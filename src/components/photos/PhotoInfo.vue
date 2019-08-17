@@ -1,46 +1,75 @@
 <template>
     <div class="photoinfo-container">
-        <h3> 图片内容 </h3>
+        <h3> {{ photoInfo.title}} </h3>
         <p class="subtitle">
-            <span>发表时间: 2019-08-15 16:31</span>
-            <span>点击：3次</span>
+            <span>发表时间: {{ photoInfo.add_time |timeFormat }}</span>
+            <span>点击：{{ photoInfo.click }}次</span>
         </p>
         <hr>
-        <!--缩略图-->
-        <div class="Thumbnail">
-            <!--<img v-for="(item,index) in slide1" :src="item.download_url" height="100" @click="$preview.open(index, list)" :key="item.id" >-->
-            <!--<vue-preview :slides="setPreview()" htight="100" class="preview"></vue-preview>-->
-            <vue-preview :slides="setPreview()" class="preview_img"></vue-preview>
-        </div>
+        <!--缩略图展示方式不一样了,属性里需要用到图片的数组-->
+        <vue-preview :slides="picList"></vue-preview>
+
+        <!--内容区域-->
+        <div class="photoinfo-content" v-html="photoInfo.content"></div>
+
         <!--评论组件-->
+        <Comment :id="id"></Comment>
 
     </div>
 </template>
 
 <script>
+    import {Toast} from 'mint-ui'
+    import Comment from "../subcomments/comment.vue";
+
     export default {
         data() {
             return {
+                photoInfo: {},
                 picList: [],
+                id: this.$route.params.id
             }
         },
         methods: {
+            // setPreview() {
+            //     this.picList.forEach(img => {
+            //         img.src = img.download_url;
+            //         img.msrc = img.download_url;
+            //         img.w = 500;//这是大图的宽
+            //         img.h = 100;
+            //     });
+            //     return this.picList;
+            // }
+            getPhotoInfo() {
+                this.axios.get('api/getimageInfo/' + this.id).then(responce => {
+                    if (responce.data.status === 0) {
+                        this.photoInfo = responce.data.message[0];
+                    } else {
+                        Toast('获取数据失败')
+                    }
+                })
+            },
             setPreview() {
-                this.picList.forEach(img => {
-                    img.src = img.download_url;
-                    img.msrc = img.download_url;
-                    img.alt = img.author;
-                    img.title = img.author;
-                    img.w = 300;//这是大图的宽
-                    img.h = 100;
-                });
-                return this.picList;
+                this.axios.get('api/getthumimages/' + this.id).then(responce => {
+                    if (responce.data.status === 0) {
+                        responce.data.message.forEach(img => {
+                            img.w = 500;
+                            img.h = 400;
+                            img.msrc = img.src;
+                        });
+                        this.picList = responce.data.message;
+                    } else {
+                        Toast('获取数据失败！')
+                    }
+                })
             }
         },
         created() {
-            this.axios.get('https://picsum.photos/v2/list?page=1&limit=10').then(responce => {
-                this.picList = responce.data;
-            })
+            this.getPhotoInfo();
+            this.setPreview();
+        },
+        components: {
+            Comment
         }
     }
 </script>
@@ -52,13 +81,18 @@
         .preview figure img {
             width: 100%;
         }
+
         h3 {
-            color: #26a2ff;
+            color: red;
             font-size: 15px;
             text-align: center;
             margin: 15px 0;
         }
 
+        .photoinfo-content{
+            line-height: 20px;
+            font-size: 13px;
+        }
         .subtitle {
             display: flex;
             justify-content: space-between;
@@ -68,23 +102,25 @@
     }
 </style>
 <style lang="scss">
-.photoinfo-container{
-    .preview_img{
-        .my-gallery{
+    .photoinfo-container {
+        .my-gallery {
             display: flex;
-            flex-wrap: wrap;
+            /*flex-wrap: wrap;*/
+            justify-content: space-around;
         }
+
         figure {
             width: 60px;
-            height: 80px;
+            height: 70px;
             margin: 10px;
             box-shadow: 0 0 8px #999;
+
             img {
                 width: 100%;
                 height: 100%;
             }
         }
+
     }
-}
 
 </style>
