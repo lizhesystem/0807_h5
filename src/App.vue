@@ -19,11 +19,13 @@
                 <span class="mui-tab-label">首页</span>
             </router-link>
             <router-link to="/MemberContainer" class="mui-tab-item-llb" href="#tabbar-with-chat">
-                <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+                <span class="mui-icon mui-icon-email"></span>
                 <span class="mui-tab-label">会员</span>
             </router-link>
             <router-link to="/ShopcarContainer" class="mui-tab-item-llb" href="#tabbar-with-contact">
-                <span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span>
+                <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
+					<span class="mui-badge" id="badge">0</span>
+				</span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
             <router-link to="/SearchContainer" class="mui-tab-item-llb" href="#tabbar-with-map">
