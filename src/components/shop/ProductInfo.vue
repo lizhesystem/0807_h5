@@ -1,7 +1,15 @@
 <template>
     <div class="productinfo-container">
+
         <!--轮播图区域，把轮播图抽离成一个组件-->
-        <Carousel :picList="PicList" :isfull="false"></Carousel>
+        <div class="mui-card">
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <!--轮播图组件-->
+                    <Carousel :picList="PicList" :isfull="false"></Carousel>
+                </div>
+            </div>
+        </div>
 
         <!--购物车小球动画效果-->
         <transition
@@ -27,6 +35,10 @@
                     <p>
                         <mt-button type="primary" size="small">立即购买</mt-button>
                         <mt-button type="danger" size="small" @click="addShopCar">加入购物车</mt-button>
+                        <!--分析：点击加入购物车获取购买数量栏的商品数量-->
+                        <!--商品数量numbox是另外一个组件，加入购物车按钮是在Productinfo页面，不在一个页面-->
+                        <!--如果想拿到numbox里面的value值的话，就需要用到子组件numbox往父组件Productinfo传值-->
+
                     </p>
                 </div>
             </div>
@@ -62,7 +74,7 @@
                 id: this.$route.params.id,
                 GoodsInfo: {},
                 flag: false,
-                selectCount: 1  // 保存用户选中的商品数量， 默认，认为用户买1个
+                selectCount: 1, // 保存用户选中的商品数量， 默认，认为用户买1个
             }
         },
         methods: {
@@ -101,10 +113,20 @@
             Goodspj(id) {
                 this.$router.push({name: 'goodsComment', params: {id: id}})
             },
-            // 加入购物车动画
+            // 加入购物车函数
             addShopCar() {
+                // 小球动画效果的flag,点击后半场动画结束后消失
                 this.flag = !this.flag;
-                console.log(this.selectCount)
+                // 拼接出来一个商品的信息 { id:商品的id, count:加入购物车的数量,price:商品价格,selected:false(是否选择)}
+                let goodsInfo = {
+                    id: this.id,
+                    count: this.selectCount,
+                    price: this.GoodsInfo.sell_price,
+                    selected: true
+                };
+                // 把拼接出来的信息加到调用vuex里commit方法加到store里
+                this.$store.commit("addCars", goodsInfo)
+
             },
             // 第一个钩子函数,el参数代表要执行动画的dom对象，
             beforeEnter(el) {
@@ -139,7 +161,8 @@
                 // afterEnter：动画完成之后会调用该函数
                 this.flag = !this.flag
             },
-            // 父组件接收子组件的方法,发现个小bug，如果直接修改值点加入购物车的时候，会超出原有的库存，所以在接收子组件传递过来的数据
+
+            // 父组件接收子组件穿过来的数量的方法,发现个小bug，如果直接修改值点加入购物车的时候，会超出原有的库存，所以在接收子组件传递过来的数据
             // 的时候加个判断，如果获取的值大于库存的话，让他等于库存。这样永远不会超过库存量。
             getCount(count) {
                 if (count > this.GoodsInfo.stock_quantity) {
@@ -148,6 +171,8 @@
                 } else {
                     this.selectCount = count
                 }
+
+
             }
         },
         components: {
@@ -163,7 +188,7 @@
 
 <style scoped lang="scss">
     .productinfo-container {
-        /*background-color: #eee;*/
+        background-color: #eee;
         overflow: hidden;
         /*position: relative;*/
 

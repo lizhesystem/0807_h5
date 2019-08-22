@@ -24,7 +24,7 @@
             </router-link>
             <router-link to="/ShopcarContainer" class="mui-tab-item-llb" href="#tabbar-with-contact">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-					<span class="mui-badge" id="badge">0</span>
+					<span class="mui-badge" id="badge">{{ $store.getters.getAllCount }}</span>
 				</span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
@@ -37,8 +37,8 @@
 </template>
 <script>
     export default {
-        methods:{
-            goBack(){
+        methods: {
+            goBack() {
                 // 利用vue路由里的go对象，-1进行往前返回的跳转，
                 this.$router.go(-1)
             }
@@ -67,10 +67,11 @@
     .v-leave-active {
         transition: all 0.5s ease;
     }
+
     /*// 该类名，解决 tabbar 点击无法切换的问题*/
-       .mui-bar-tab .mui-tab-item-llb.mui-active {
-           color: #007aff;
-       }
+    .mui-bar-tab .mui-tab-item-llb.mui-active {
+        color: #007aff;
+    }
 
     .mui-bar-tab .mui-tab-item-llb {
         display: table-cell;
@@ -92,14 +93,14 @@
         padding-bottom: 0;
     }
 
-    .mui-bar-tab .mui-tab-item-llb .mui-icon~.mui-tab-label {
+    .mui-bar-tab .mui-tab-item-llb .mui-icon ~ .mui-tab-label {
         font-size: 11px;
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .Thumbnail img{
+    .Thumbnail img {
         width: 100px;
     }
 </style>
