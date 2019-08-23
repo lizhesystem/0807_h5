@@ -2,7 +2,7 @@
     <div class="app-container">
         <!--顶部区域-->
         <mt-header fixed title="Vue项目">
-            <div slot="left" @click="goBack">
+            <div slot="left" @click="goBack" v-show="isback">
                 <mt-button icon="back">返回</mt-button>
             </div>
         </mt-header>
@@ -37,13 +37,33 @@
 </template>
 <script>
     export default {
+        data() {
+            return {
+                flag: false
+            }
+        },
         methods: {
             goBack() {
                 // 利用vue路由里的go对象，-1进行往前返回的跳转，
                 this.$router.go(-1)
             }
+        },
+        computed: {
+            // '$route.path': function () {
+            //     console.log(newVal);
+            //     // if (newVal === '/HomeContainer') {
+            //     //     this.flag = true
+            //     // } else {
+            //     //     this.flag = false
+            //     // }
+            //     return
+            isback (){
+                return this.$route.path !== '/HomeContainer'
+            }
+
         }
     }
+
 </script>
 
 <style scoped>

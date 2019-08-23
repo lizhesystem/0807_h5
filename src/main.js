@@ -21,17 +21,17 @@ const store = new Vuex.Store({
         car: car
     },
     mutations: {
-        // 定义一个把商品加入加入car的方法--因为不能直接操作car.push不推荐。。。
+        // 定义一个把商品加入加入购物车car的方法--因为不能直接操作car.push不推荐。。。
         addCars(state, goodsinfo) {
             // 分析：怎么加这个商品
             // 1：直接push肯定不行，这样会导致同一个商品很多条，我们只需要数量增加就行了。
-            // 2：循环这个car,如果car的id和穿过来的goodsinfo的id相等，那么直接把这个数量加上去就行，但是综合来看使用some()比价好
+            // 2：循环这个car,如果car的id和穿过来的goodsinfo的id相等，那么直接把这个数量加上去就行，但是综合来看使用some()比较好用
             // 3: some方法判断数据，匹配不上返回false,空数组直接返回false,
 
             let cflag = false; // 定义一个flag来判断是否匹配上了数据, 假设在购物车中，没有找到对应的商品
 
 
-            // 循环这个容器，判断里面有没有同样的商品,如果有把数量给加上去
+            // 循环这个容器，判断里面有没有同样的商品,如果有只需要把数量给加上去就行了
             state.car.some(item => {
                 if (item.id === goodsinfo.id) {
                     item.count += parseInt(goodsinfo.count);
@@ -58,9 +58,9 @@ const store = new Vuex.Store({
 
             })
         },
-        // 删除car里商品的的方法，传过来的ID是商品ID，循环car数组,如果有相等的。直接通过索引的方式splice掉
+        // 删除car里商品的的方法，界面上删后，还需要vuex里删，传过来的ID是商品ID，循环car数组,如果有相等的。直接通过索引的方式splice掉
         // obj.splice(n,1)     指定位置删除元素，n代表当前元素的索引
-        removeGoodsCar(state,id) {
+        removeGoodsCar(state, id) {
             state.car.some((item, i) => {
                 if (item.id === id) {
                     state.car.splice(i, 1);
@@ -69,7 +69,16 @@ const store = new Vuex.Store({
             });
             // 更新完毕后重新把数据放到本地存储里，这里会覆盖
             localStorage.setItem('car', JSON.stringify(state.car));
-
+        },
+        // 更新购物车selected里状态的方法，根据穿过来的id和状态，更改car里的当前商品的状态。
+        updateGoodsStatus(state, select) {
+            state.car.forEach(item => {
+                if (item.id === select.id) {
+                    item.selected = select.selected
+                }
+            });
+            // 更新完毕把数据放到本地存储覆盖。
+            localStorage.setItem('car', JSON.stringify(state.car));
         }
     },
     getters: {
@@ -82,13 +91,35 @@ const store = new Vuex.Store({
             });
             return num
         },
-        // 创建{ 81:23,82:2,83:4} 这样的id和数量对于关系的对象。
+        // 创建{ 81:23,82:2,83:4} 这样的id和数量对于关系的对象，用来统计当前商品的数量，用于传给购物车里计数栏商品数量
         getGoodsCount(state) {
             let val = {};
             state.car.forEach(item => {
                 val[item.id] = parseInt(item.count)
             });
             return val;
+        },
+        // 创建{81:true,82:true}这样的id和selected关系的对象，用来统计商品对象selected的状态。
+        getGoodsStatus(state) {
+            let o = {};
+            state.car.forEach(item => {
+                o[item.id] = item.selected
+            });
+            return o;
+        },
+        // 获取购物车里商品的数量和价格，这玩意就像计算属性一样。时刻监听数据
+        getGoodsNumMoney(state) {
+            let m = {
+                count: 0,
+                price: 0
+            };
+            state.car.forEach(item => {
+                if (item.selected) {
+                    m.count += item.count;
+                    m.price += (item.count * item.price)
+                }
+            });
+            return m
         }
     }
 });

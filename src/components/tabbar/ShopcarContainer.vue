@@ -4,7 +4,14 @@
         <div class="mui-card" v-for="(item,i) in goodsList" :key="item.id">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    <mt-switch></mt-switch>
+                    <!--
+                    mt-switch里判断按钮是否开关，根据v-model来定义里面传boolean值,根据getters的这个方法得到
+                    {id:boolean,id:boolean}的数据，根据这个id得到布尔值
+
+                    把按钮是否关开发送到vuex里。绑定一个change方法，传入2个参数一个是商品ID一个是状态
+                    -->
+                    <mt-switch v-model="$store.getters.getGoodsStatus[item.id]"
+                               @change="updateStatus(item.id,$store.getters.getGoodsStatus[item.id])"></mt-switch>
                     <img :src="item.thumb_path" alt="">
                     <div class="info">
                         <p class="title">{{ item.title }}</p>
@@ -22,13 +29,15 @@
                 </div>
             </div>
         </div>
+
         <!--结算模块-->
         <div class="mui-card">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner account">
                     <div class="left">
                         <h4>总计(不含运费)</h4>
-                        <p>已勾选商品<span>6</span>件，总价<span>￥2222</span></p>
+                        <p>已勾选商品<span>{{ $store.getters.getGoodsNumMoney.count }}</span>件，总价<span>￥{{$store.getters.getGoodsNumMoney.price }}</span>
+                        </p>
                     </div>
                     <mt-button type="danger">结算</mt-button>
 
@@ -72,6 +81,10 @@
             remove(id, index) {
                 this.goodsList.splice(index, 1);
                 this.$store.commit('removeGoodsCar', id)
+            },
+            // 把id和状态调用vuex里的方法updateGoodsStatus
+            updateStatus(id, status) {
+                this.$store.commit('updateGoodsStatus', {id: id, selected: status})
             }
 
         },

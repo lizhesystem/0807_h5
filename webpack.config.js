@@ -36,7 +36,7 @@ module.exports = {
             {test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader']}, // 处理less文件的规则
             {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']}, // 处理sass文件的规则
             // 处理图片的loader,如果字节小于7631转成base64位,name可选参数，代表图片的名字,后面参数拼接图片的名字，8位base64+图片名称
-            {test: /\.(png|jpg|gif)$/, use: 'url-loader?limit=7631&name=[hash:8]-[name].[ext]'},
+            {test: /\.(png|jpg|gif)$/, use: 'url-loader?limit=7631&name=images/[hash:8]-[name].[ext]'},
             {test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader'}, // 处理字体文件的 loader (bootstrap字体图标)
             // 用来处理ES6或者ES7高级语法的loader,相当于一个转换器。会把高级语法转换成ES5浏览器能识别的JS代码
             // 注：参数里exclude: 表示不转换的文件夹。|需要创建.babelrc配置文件，里面配置转换插件的字典和工具
