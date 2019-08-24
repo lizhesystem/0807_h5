@@ -35,7 +35,7 @@
 
 <!--这里的scoped得去掉要不然无法更改v-html下img的样式-->
 <style  lang="scss">
-    .GoodsDesc-container{
+    .GoodsDesc-container {
         padding: 4px;
         h3{
             font-size: 16px;
@@ -50,7 +50,6 @@
             img{
                 width: 100%;
             }
-
         }
     }
 
