@@ -20,15 +20,24 @@
 ## 项目截图
 
 ![image](https://s2.ax1x.com/2019/08/24/msoWNT.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msTTJS.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msT5If.png)
-![image](https://s2.ax1x.com/2019/08/24/msTqMj.th.png)
+
+![image](https://s2.ax1x.com/2019/08/24/msTqMj.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msToi8.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msT7Rg.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msTLss.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msTOLn.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msTjZq.png)
+
 ![image](https://s2.ax1x.com/2019/08/24/msTvd0.png)
 
 ## PS：
-感谢黑马老师提供的接口`http://www.liulongbin.top:3005，确实讲的挺好，目前还一直提供使用，大家需要这个视频的话可以去bilibili搜索vue教程-黑马。
+感谢黑马老师提供的接口`http://www.liulongbin.top:3005`，确实讲的挺好，目前还一直提供使用，大家需要这个视频的话可以去bilibili搜索vue教程-黑马。
