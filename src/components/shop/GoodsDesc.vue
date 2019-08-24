@@ -33,6 +33,7 @@
     }
 </script>
 
+<!--这里的scoped得去掉要不然无法更改v-html下img的样式-->
 <style scoped lang="scss">
     .GoodsDesc-container{
         padding: 4px;
@@ -49,6 +50,7 @@
             img{
                 width: 100%;
             }
+
         }
     }
 
