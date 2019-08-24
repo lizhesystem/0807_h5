@@ -1,11 +1,12 @@
 // 导入处理路径的模块
 const path = require('path');
+
+
 // 导入在内存中生成 HTML 页面的 插件
 // 只要是插件，都一定要 放到 plugins 节点中去
 // 这个插件的两个作用：
 //  1. 自动在内存中根据指定页面生成一个内存的页面
 //  2. 自动，把打包好的 bundle.js 追加到页面中去
-
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 // 配置vue这个插件是必须的！ 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /\.js$/ 的规则，那么它会应用到 .vue 文件里的 <script> 块。

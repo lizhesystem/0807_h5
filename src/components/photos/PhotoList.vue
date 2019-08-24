@@ -6,7 +6,8 @@
                  class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                 <div class="mui-scroll">
                     <!--先根据数据渲染title,然后在每个title上绑定方法并且传入分类ID，得到各个title的数据。默认0是全部数据-->
-                    <!--默认是绑定了click的时间进行点击标签切换数据，但是如果使用click的话会导致无法切换请求，在mui里有一个@tap来替代click时间-->
+                    <!--默认是绑定了click的时间进行点击标签切换数据，但是如果使用click的话会导致无法切换请求，在mui里有一个@tap来替代click事件-->
+                    <!-- 选中高亮是这个类名 mui-active , 默认我们的全部分类是高亮-->
                     <a @tap="getImageLists(item.id)" :class="['mui-control-item',item.id === 0 ? 'mui-active':'']"
                        v-for="item in TitleLists"
                        :key="item.id">
@@ -31,6 +32,8 @@
 </template>
 
 <script>
+    // <!-- 顶部滑动条区域 (有5个坑，看md说明解决)
+    // 由于还需要滑动，这是个js事件，所以要引入mui的js -->
     import mui from '../../lib/mui/js/mui.min'
     import {Toast} from 'mint-ui'
 

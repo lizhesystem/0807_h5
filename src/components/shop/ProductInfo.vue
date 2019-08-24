@@ -5,18 +5,19 @@
         <div class="mui-card">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    <!--轮播图组件-->
+                    <!--轮播图组件，根据给子组件轮播图组件传入不同的isfull属性,来展示不同的样式-->
                     <Carousel :picList="PicList" :isfull="false"></Carousel>
                 </div>
             </div>
         </div>
 
-        <!--购物车小球动画效果-->
+        <!--购物车小球加到购物车里动画效果，半场动画效果-->
         <transition
                 @before-enter="beforeEnter"
                 @enter="enter"
                 @after-enter="afterEnter"
         >
+            <!--定义小球-->
             <div class="ball" v-show="flag" ref="ball"></div>
         </transition>
 
